@@ -8,5 +8,6 @@ async function list(req, res) {
 }
 
 module.exports = {
+  create: asyncErrorBoundary(create),
   list,
 };
