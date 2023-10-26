@@ -1,7 +1,7 @@
 /**
  * List handler for reservation resources
  */
-const reservationsService = require("./reservationis.service");
+const reservationsService = require("./reservations.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const hasProperties = require("../errors/hasProperties");
 
@@ -92,7 +92,7 @@ function notFinishedForUpdate(req, res, next){
   }
 }
 
-function upddatedValidationStatus(req,res,next){
+function updatedValidationStatus(req,res,next){
   const status = req.body.data.status;
   if (status !== "unknown") {
     return next();
