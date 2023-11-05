@@ -1,11 +1,11 @@
-import React, {useState} from "react";
-import {useHistory} from "react-router-dom";
-import {createReservation} from "../utils/api";
-import ErrorAlert from "../layout/ErrorAlert"; 
-import ReservationLayout from "./ReservationLayout";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { createReservation } from "../utils/api";
+import ErrorAlert from "../layout/ErrorAlert";
+import ReservationForm from "./ReservationForm";
 
-function NewReservation(){
-    const history = useHistory();
+function NewReservation() {
+  const history = useHistory();
 
   const [newReservation, setNewReservation] = useState({
     first_name: "",

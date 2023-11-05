@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 import { createTable } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 
-function TableLayout(){
-    let history = useHistory();
+function TablesForm() {
+  let history = useHistory();
 
   let [tableToBeCreated, setTableToBeCreated] = useState({
     table_name: "",
@@ -79,4 +79,4 @@ function TableLayout(){
   );
 }
 
-export default TableLayout;
+export default TablesForm;

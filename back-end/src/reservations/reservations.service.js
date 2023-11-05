@@ -4,17 +4,7 @@ function create(reservation) {
   return knex("reservations")
     .insert(reservation)
     .returning("*")
-    .then((createdRecords) => {
-      
-      const newRec = {
-        first_name: createdRecords[0].first_name, 
-        last_name: createdRecords[0].last_name,
-        mobile_number: createdRecords[0].mobile_number,
-        people: parseInt(createdRecords[0].people)
-      }
-      console.log("Created Records", newRec)
-      return newRec;
-    });
+    .then((createdRecords) => createdRecords[0]);
 }
 
 function read(reservation_id) {
@@ -39,11 +29,50 @@ function listReservationsForDate(date) {
     .orderBy("reservation_time");
 }
 
+function listByPhone(mobile_number) {
+  return knex("reservations")
+    .whereRaw(
+      "translate(mobile_number, '() -', '') like ?",
+      `%${mobile_number.replace(/\D/g, "")}%`
+    )
+    .orderBy("reservation_date");
+}
+
 function createTable(table) {
   return knex("tables")
     .insert(table)
     .select("*")
     .then((createdRecords) => createdRecords[0]);
+}
+
+function updateReservation(reservation) {
+  const {
+    reservation_id,
+    first_name,
+    last_name,
+    mobile_number,
+    reservation_date,
+    reservation_time,
+    people,
+  } = reservation;
+  return knex("reservations").where({ reservation_id }).update(
+    {
+      first_name: first_name,
+      last_name: last_name,
+      mobile_number: mobile_number,
+      reservation_date: reservation_date,
+      reservation_time: reservation_time,
+      people: people,
+    },
+    [
+      "first_name",
+      "last_name",
+      "mobile_number",
+      "reservation_date",
+      "reservation_time",
+      "people",
+    ]
+  );
 }
 
 function updateResStatus(reservation_id, status) {
@@ -56,22 +85,14 @@ function listTables() {
   return knex("tables").select("*").orderBy("table_name");
 }
 
-function listByPhone(mobile_number) {
-  return knex("reservations")
-    .whereRaw(
-      "translate(mobile_number, '() -', '') like ?",
-      `%${mobile_number.replace(/\D/g, "")}%`
-    )
-    .orderBy("reservation_date");
-}
-
 module.exports = {
   create,
   read,
+  updateReservation,
   updateResStatus,
   list,
   listReservationsForDate,
+  listByPhone,
   createTable,
   listTables,
-  listByPhone, 
 };

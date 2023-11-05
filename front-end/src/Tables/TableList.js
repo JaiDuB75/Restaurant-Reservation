@@ -1,11 +1,11 @@
-import React, {useState} from "react";
-import {useHistory} from "react-router-dom";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import ErrorAlert from "../layout/ErrorAlert";
-import {deleteTableAssignment} from "../utils/api";
-import {updateReservationsStatus, listTables} from "../utils/api";
+import { deleteTableAssignment } from "../utils/api";
+import { updateReservationStatus, listTables } from "../utils/api";
 
-function ListTables({table}){
-    const [currentTable, setCurrentTable] = useState(table);
+function TableList({ table }) {
+  const [currentTable, setCurrentTable] = useState(table);
   const history = useHistory();
   const [error, setError] = useState(null);
 
@@ -76,4 +76,4 @@ function ListTables({table}){
   );
 }
 
-export default ListTables;
+export default TableList;

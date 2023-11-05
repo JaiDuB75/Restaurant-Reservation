@@ -2,39 +2,31 @@ const service = require("./reservations.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const hasProperties = require("../errors/hasProperties");
 
+/**
+ * List handler for reservation resources
+ */
 async function list(req, res) {
   const { date, currentDate, mobile_number } = req.query;
-
   let reservations;
 
   if (date || currentDate) {
     const targetDate = date || currentDate;
-    const reservations = await service.listReservationsForDate(targetDate);
+    reservations = await service.listReservationsForDate(targetDate);
   } else if (mobile_number) {
     reservations = await service.listByPhone(mobile_number);
-    res.json({ data: reservations });
   } else {
     reservations = await service.list();
   }
-
-  res.json({data: reservations});
-}
-
-async function listAllReservations(req, res, next) {
-  const allReservations = await service.list();
-  res.json({ data: allReservations });
+  res.json({ data: reservations });
 }
 
 async function create(req, res) {
-  const {data} = req.body;
-  console.log("Data from Create Reservation", data);
-  const newReservation = await service.create(data);
-  console.log("Create New Reservation",newReservation);
-  res.status(201).json({ data: newReservation });
+  const data = await service.create(req.body.data);
+  res.status(201).json({ data });
 }
 
 async function createTable(req, res, next) {
-  const data = await service.updateResStatus(req.body.data);
+  const data = await service.create(req.body.data);
   res.status(201).json({ data });
 }
 
@@ -48,6 +40,13 @@ function read(req, res, next) {
   res.status(200).json({ data });
 }
 
+async function updateReservation(req, res, next) {
+  const reservation = req.body.data;
+  const newRes = await service.updateReservation(reservation);
+  const result = newRes[0];
+  res.status(200).json({ data: result });
+}
+
 async function updateResStatus(req, res, next) {
   const { status } = req.body.data;
   const reservation = res.locals.reservation;
@@ -57,6 +56,8 @@ async function updateResStatus(req, res, next) {
   );
   res.status(200).json({ data: { status: data[0].status } });
 }
+
+// VALIDATION MIDDLEWARE
 
 async function reservationExists(req, res, next) {
   const { reservation_id } = req.params;
@@ -145,6 +146,7 @@ function reservationTimeIsATime(req, res, next) {
 function notTuesday(req, res, next) {
   const date = req.body.data.reservation_date;
   const weekday = new Date(date).getUTCDay();
+  console.log("weekday", weekday);
   if (weekday === 2) {
     return next({
       status: 400,
@@ -174,6 +176,7 @@ function isWithinOpenHours(req, res, next) {
   let closingTime = "21:30";
 
   let { reservation_time } = req.body.data;
+  console.log("time", reservation_time);
   if (reservation_time < openingTime || reservation_time > closingTime) {
     return next({
       status: 400,
@@ -207,7 +210,6 @@ function notFinished(req, res, next) {
 
 module.exports = {
   list: asyncErrorBoundary(list),
-  listAllReservations,
   create: [
     hasRequiredProperties,
     reservationDateIsADate,
@@ -221,6 +223,19 @@ module.exports = {
     asyncErrorBoundary(create),
   ],
   read: [asyncErrorBoundary(reservationExists), read],
+  updateReservation: [
+    asyncErrorBoundary(reservationExists),
+    hasRequiredProperties,
+    reservationDateIsADate,
+    reservationTimeIsATime,
+    peopleIsANumber,
+    notInThePast,
+    notTuesday,
+    isWithinOpenHours,
+    notSeated,
+    notFinished,
+    asyncErrorBoundary(updateReservation),
+  ],
   updateResStatus: [
     asyncErrorBoundary(reservationExists),
     notFinishedForUpdate,

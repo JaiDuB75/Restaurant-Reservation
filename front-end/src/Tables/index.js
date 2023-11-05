@@ -1,11 +1,11 @@
 import React from "react";
-import TableLayout from "./TableLayout";
+import TablesForm from "./TablesForm";
 
 function Tables() {
   return (
     <>
       <h2>New Table</h2>
-      <TableLayout />
+      <TablesForm />
     </>
   );
 }
