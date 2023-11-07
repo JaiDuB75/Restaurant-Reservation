@@ -40,9 +40,7 @@ function ReservationForm({ handleSubmit, handleChange, history, reservation }) {
           name="mobile_number"
           value={reservation.mobile_number}
           onChange={handleChange}
-          pattern="[0-9]{10}"
-          minLength="10"
-          maxLength="10"
+          
           required
         />
         <br />
@@ -90,6 +88,7 @@ function ReservationForm({ handleSubmit, handleChange, history, reservation }) {
         <br />
         <button type="submit" className="btn btn-primary">Submit</button>
         <button
+          type="cancel"
           onClick={() => history.goBack()}
           className="btn btn-secondary ml-2"
         >

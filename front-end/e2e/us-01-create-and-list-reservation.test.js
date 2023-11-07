@@ -49,21 +49,15 @@ describe("US-01 - Create and list reservations - E2E", () => {
         fullPage: true,
       });
 
-      console.log(2);
-
       await Promise.all([
         page.click("[type=submit]"),
         page.waitForNavigation({ waitUntil: "networkidle0" }),
       ]);
 
-      console.log(3);
-
       await page.screenshot({
         path: ".screenshots/us-01-submit-after.png",
         fullPage: true,
       });
-
-      console.log(4);
 
       await expect(page).toMatch(lastName);
     });

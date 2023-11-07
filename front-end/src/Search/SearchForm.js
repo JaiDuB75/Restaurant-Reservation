@@ -47,10 +47,7 @@ function SearchForm() {
           name="mobile_number"
           type="search"
           value={numberToBeSearched.value}
-          pattern="[0-9]{10}"
           placeholder="Enter a customer's phone number"
-          minLength="10"
-          maxLength="10"
           className="ml-2 search-input-field"
           onChange={handleChange}
         />

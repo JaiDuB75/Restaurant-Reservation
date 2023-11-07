@@ -71,7 +71,7 @@ function TablesForm() {
         <br />
         <br />
         <button type="submit" className="btn btn-primary">Submit</button>
-        <button onClick={handleCancel} className="btn btn-secondary ml-2">
+        <button type="button" onClick={handleCancel} className="btn btn-secondary ml-2">
           Cancel
         </button>
       </form>

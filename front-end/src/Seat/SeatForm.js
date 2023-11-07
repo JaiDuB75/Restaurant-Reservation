@@ -64,7 +64,7 @@ function SeatForm() {
         <br />
         <button type="submit" className="btn btn-primary">Submit</button>
         <button
-          
+          type="cancel"
           className="btn btn-secondary ml-2"
           onClick={handleCancel}
         >

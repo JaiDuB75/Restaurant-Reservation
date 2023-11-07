@@ -63,10 +63,10 @@ function TableList({ table }) {
           </p>
           {currentTable.reservation_id && (
             <button
+            
               data-table-id-finish={table.table_id}
               className="btn btn-danger"
               onClick={handleClear}
-            
             >
               Finish
             </button>
