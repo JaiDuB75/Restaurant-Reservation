@@ -88,9 +88,8 @@ function ReservationForm({ handleSubmit, handleChange, history, reservation }) {
           min="1"
         />
         <br />
-        <button type="button" className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary">Submit</button>
         <button
-          type="button"
           onClick={() => history.goBack()}
           className="btn btn-secondary ml-2"
         >

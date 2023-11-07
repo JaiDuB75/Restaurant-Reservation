@@ -51,7 +51,6 @@ function Menu() {
           <button
             className="btn rounded-circle border-0"
             id="sidebarToggle"
-            type="button"
           />
         </div>
       </div>

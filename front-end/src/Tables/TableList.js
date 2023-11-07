@@ -66,7 +66,7 @@ function TableList({ table }) {
               data-table-id-finish={table.table_id}
               className="btn btn-danger"
               onClick={handleClear}
-              type="button"
+            
             >
               Finish
             </button>
