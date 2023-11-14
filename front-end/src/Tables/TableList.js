@@ -1,80 +1,43 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import ErrorAlert from "../layout/ErrorAlert";
-import { deleteTableAssignment } from "../utils/api";
-import { updateReservationStatus, listTables } from "../utils/api";
+import React from "react";
 
-function TableList({ table }) {
-  const [currentTable, setCurrentTable] = useState(table);
-  const history = useHistory();
-  const [error, setError] = useState(null);
-
-  async function clearAndLoadTables() {
-    const abortController = new AbortController();
-    try {
-      const response = await deleteTableAssignment(
-        currentTable.table_id,
-        abortController.signal
-      );
-      const tableToSet = response.find(
-        (table) => table.table_id === currentTable.table_id
-      );
-      setCurrentTable({ ...tableToSet });
-      listTables();
-      return tableToSet;
-    } catch (error) {
-      setError(error);
-    }
-  }
-
-  async function handleClear(event) {
-    const abortController = new AbortController();
-    event.preventDefault();
-    setError(null);
-    if (
-      window.confirm(
-        "Is this table ready to seat new guests? This cannot be undone."
-      )
-    ) {
-      await updateReservationStatus(
-        { status: "finished" },
-        currentTable.reservation_id,
-        abortController.signal
-      );
-      debugger;
-      const newTable = await clearAndLoadTables();
-      console.log(newTable);
-      history.push("/dashboard");
-      return;
-    }
-  }
-
+export const TablesList = ({ tables, finishHandler }) => {
   return (
-    <>
-      <ErrorAlert error={error} />
-      <div className="card" key={currentTable.table_id}>
-        <div className="card-header">
-          <h5 className="card-title">{currentTable.table_name}</h5>
+    <div className="group-col">
+      {tables.map((table) => (
+        <div className="table" key={table.table_id}>
+          <div className="group-row">
+            <div className="item-quad">
+              <div className="group-col no-gap">
+                <h3 className="item inline"> {table.table_name}</h3>
+                <div>
+                  <h5 className="item red inline">{table.capacity} seats </h5>
+                  <p
+                    className="item inline"
+                    data-table-id-status={table.table_id}
+                  >
+                    &nbsp;/ &nbsp;{table.occupied ? "occupied" : "free"}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="item">
+              {table.occupied ? (
+                <button
+                  className="finish"
+                  data-table-id-finish={table.table_id}
+                  onClick={() => finishHandler(table.table_id)}
+                >
+                  Finish
+                </button>
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
         </div>
-        <div className="card-body">
-          <p>Capacity: {currentTable.capacity}</p>
-          <p data-table-id-status={currentTable.table_id}>
-            {currentTable.reservation_id ? "occupied" : "free"}
-          </p>
-          {currentTable.reservation_id && (
-            <button
-            
-              data-table-id-finish={table.table_id}
-              className="btn btn-danger"
-              onClick={handleClear}
-            >
-              Finish
-            </button>
-          )}
-        </div>
-      </div>
-    </>
+      ))}
+    </div>
   );
-}
+};
 
-export default TableList;
+export default TablesList;

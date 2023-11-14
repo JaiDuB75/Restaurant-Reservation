@@ -170,6 +170,7 @@ describe("US-04 - Seat reservation - E2E", () => {
     });
 
     test("seating reservation at table #1 makes the table occupied", async () => {
+      console.log(1)
       await page.waitForSelector('option:not([value=""])');
 
       await page.screenshot({
@@ -177,6 +178,7 @@ describe("US-04 - Seat reservation - E2E", () => {
         fullPage: true,
       });
 
+      console.log(2)
       await selectOptionByText(page, "table_id", "#1 - 6");
 
       await page.screenshot({
@@ -184,6 +186,7 @@ describe("US-04 - Seat reservation - E2E", () => {
         fullPage: true,
       });
 
+      console.log(3)
       await Promise.all([
         page.click("[type=submit]"),
         page.waitForNavigation({ waitUntil: "networkidle0" }),
@@ -194,11 +197,15 @@ describe("US-04 - Seat reservation - E2E", () => {
         fullPage: true,
       });
 
+      console.log(4)
       expect(page.url()).toContain("/dashboard");
+      console.log(5)
       expect(page).toMatch(/occupied/i);
+      console.log(6)
     });
 
     test("cannot seat reservation at Bar #1", async () => {
+      console.log(1)
         await page.waitForSelector('option:not([value=""])');
 
         await page.screenshot({
@@ -206,6 +213,7 @@ describe("US-04 - Seat reservation - E2E", () => {
           fullPage: true,
         });
 
+        console.log(2)
         await selectOptionByText(page, "table_id", "Bar #1 - 1");
 
         await page.screenshot({
@@ -213,10 +221,12 @@ describe("US-04 - Seat reservation - E2E", () => {
           fullPage: true,
         });
 
+        console.log(3)
         await Promise.all([
           page.click("[type=submit]"),
         ]);
 
+        console.log(4)
         await page.screenshot({
           path: ".screenshots/us-04-seat-capacity-reservation-submit-after.png",
           fullPage: true,
