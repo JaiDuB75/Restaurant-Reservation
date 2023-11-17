@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { listReservations, updateStatus } from "../utils/api";
+import { listReservations, updateReservationStatus } from "../utils/api";
 import ReservationsList from "../Reservations/ReservationsList";
 
 export const Search = () => {
@@ -34,7 +34,7 @@ export const Search = () => {
     );
 
     if (result) {
-      await updateStatus(event.target.value, "cancelled");
+      await updateReservationStatus(event.target.value, "cancelled");
       let res = await listReservations(
         { mobile_number: mobileNumber },
         abortController.signal

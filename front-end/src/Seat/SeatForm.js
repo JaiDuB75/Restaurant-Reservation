@@ -46,7 +46,7 @@ function SeatForm() {
     <>
       <ErrorAlert error={error} />
       <form onSubmit={handleSubmit}>
-        <label htmlFor="table_id">Select table:</label>
+        <label htmlFor="table_id">Select Table:</label>
         <select
           name="table_id"
           id="table_id"
@@ -65,7 +65,7 @@ function SeatForm() {
         <button type="submit" className="btn btn-primary">Submit</button>
         <button
           type="cancel"
-          className="btn btn-secondary ml-2"
+          className="btn btn-secondary"
           onClick={handleCancel}
         >
           Cancel

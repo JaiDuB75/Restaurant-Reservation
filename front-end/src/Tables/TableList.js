@@ -8,14 +8,14 @@ export const TablesList = ({ tables, finishHandler }) => {
           <div className="group-row">
             <div className="item-quad">
               <div className="group-col no-gap">
-                <h3 className="item inline"> {table.table_name}</h3>
+                <h3 className="item inline">Table {table.table_name}</h3>
                 <div>
                   <h5 className="item red inline">{table.capacity} seats </h5>
                   <p
                     className="item inline"
                     data-table-id-status={table.table_id}
                   >
-                    &nbsp;/ &nbsp;{table.occupied ? "occupied" : "free"}
+                    &nbsp;/ &nbsp;{table.reservation_id ? "occupied" : "free"} 
                   </p>
                 </div>
               </div>

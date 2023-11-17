@@ -61,17 +61,17 @@ export const ReservationsList = ({
               <div className="item">
                 {reservation.status === "booked" ? (
                   <div className="group-reverse">
-                    <Link
-                      className="item button-link"
-                      to={`/reservations/${reservation.reservation_id}/seat`}
+                    <a
+                      className="btn btn-primary"
+                      href={`/reservations/${reservation.reservation_id}/seat`}
                     >
-                      Seat
-                    </Link>
+                      Seat Reservation
+                    </a>
                     <Link
                       className="item button-link"
                       to={`/reservations/${reservation.reservation_id}/edit`}
                     >
-                      Edit
+                      Edit Reservation
                     </Link>
                     <button
                       className="item black"
@@ -80,7 +80,7 @@ export const ReservationsList = ({
                       value={reservation.reservation_id}
                       onClick={cancelHandler}
                     >
-                      Cancel
+                      Cancel Reservation
                     </button>
                   </div>
                 ) : (
@@ -94,7 +94,7 @@ export const ReservationsList = ({
     } else {
       return (
         <div className="group">
-          <h4>No reservations found</h4>
+          <h4>No Reservations Today</h4>
         </div>
       );
     }
