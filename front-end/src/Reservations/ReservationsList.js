@@ -94,7 +94,7 @@ export const ReservationsList = ({
     } else {
       return (
         <div className="group">
-          <h4>No Reservations Today</h4>
+          <h4>No reservations found</h4>
         </div>
       );
     }
