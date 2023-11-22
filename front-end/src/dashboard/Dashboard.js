@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { listReservations, listTables, deleteTableAssignment, updateReservationStatus, finishTable, updateStatus } from "../utils/api";
+import { listReservations, listTables, finishTable, updateStatus } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import { next, previous, today } from "../utils/date-time";
 import { useHistory } from "react-router-dom";

@@ -3,7 +3,6 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Dashboard from "../dashboard/Dashboard";
 import ReservationNew from "../Reservations/ReservationNew";
-//import ReservationSeat from "../Reservations/ReservationSeat";
 import Seat from "../Seat";
 import ReservationEdit from "../Reservations/ReservationEdit";
 import TableNew from "../Tables/TableNew";
@@ -15,7 +14,7 @@ import useQuery from "../utils/useQuery";
 /**
  * Defines all the routes for the application.
  *
- * You will need to make changes to this file.
+ * 
  *
  * @returns {JSX.Element}
  */

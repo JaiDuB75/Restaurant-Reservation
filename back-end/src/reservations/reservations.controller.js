@@ -32,7 +32,7 @@ async function createTable(req, res, next) {
 
 async function listTables(req, res, next) {
   const data = await service.list();
-  res.status(201).json({ data });
+  res.status(200).json({ data });
 }
 
 function read(req, res, next) {

@@ -13,7 +13,7 @@ async function updateSeatRes(req, res) {
     reservation.reservation_id,
     table.table_id
   );
-  res.json({ data });
+  res.status(200).json({ data });
   console.log("Update Seat Reservations", data);
 }
 
