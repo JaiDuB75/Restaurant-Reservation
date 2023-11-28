@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { createReservation } from "../utils/api";
-import ReservationErrors from "./ReservationErrors";
+//import ReservationErrors from "./ReservationErrors";
+import ErrorAlert from "../layout/ErrorAlert";
 import ReservationForm from "./ReservationForm";
 import { hasValidDateAndTime } from "./ReservationValidate";
 
@@ -57,7 +58,7 @@ export const ReservationNew = () => {
   return (
     <section>
       <h2>Create a Reservation:</h2>
-      <ReservationErrors errors={reservationErrors} />
+      <ErrorAlert error={reservationErrors} />
       <ReservationForm
         reservation={reservation}
         changeHandler={changeHandler}

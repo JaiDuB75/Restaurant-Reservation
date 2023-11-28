@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { readReservation, updateReservation } from "../utils/api";
-import ReservationErrors from "./ReservationErrors";
+import ErrorAlert from "../layout/ErrorAlert";
 import ReservationForm from "./ReservationForm";
 import { hasValidDateAndTime } from "./ReservationValidate";
 
@@ -68,7 +68,7 @@ export const ReservationEdit = () => {
   return (
     <section>
       <h2>Edit Reservation:</h2>
-      <ReservationErrors errors={reservationErrors} />
+      <ErrorAlert error={reservationErrors} />
       <ReservationForm
         reservation={reservation}
         changeHandler={changeHandler}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { createTable } from "../utils/api";
-import TableErrors from "./TableErrors";
+import ErrorAlert from "../layout/ErrorAlert";
 
 export const TableNew = () => {
   const initialTableState = {
@@ -43,7 +43,7 @@ export const TableNew = () => {
   return (
     <section>
       <h2>Create a Table:</h2>
-      <TableErrors errors={tableErrors} />
+      <ErrorAlert error={tableErrors} />
       <form onSubmit={submitHandler}>
         <fieldset>
           <div>
