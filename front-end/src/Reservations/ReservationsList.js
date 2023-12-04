@@ -61,12 +61,12 @@ export const ReservationsList = ({
               <div className="item">
                 {reservation.status === "booked" ? (
                   <div className="group-reverse">
-                    <a
+                    <Link 
                       className="btn btn-primary"
-                      href={`/reservations/${reservation.reservation_id}/seat`}
+                      to={`/reservations/${reservation.reservation_id}/seat`}
                     >
                       Seat Reservation
-                    </a>
+                    </Link>
                     <Link
                       className="item button-link"
                       to={`/reservations/${reservation.reservation_id}/edit`}
