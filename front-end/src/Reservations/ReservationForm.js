@@ -41,11 +41,13 @@ export const ReservationForm = ({
             <input
               id="mobile_number"
               name="mobile_number"
-              type="text"
+              type="tel"
               required={true}
               value={reservation.mobile_number}
-              maxLength="100"
+              maxLength="10"
               onChange={changeHandler}
+              pattern="[0-9]{10}"
+              minLength="10"
             />
           </div>
           <div>
@@ -84,7 +86,7 @@ export const ReservationForm = ({
               type="number"
               required={true}
               value={reservation.people}
-              min={1}
+              min="1"
               onChange={changeHandler}
             />
           </div>
